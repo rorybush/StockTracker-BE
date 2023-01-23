@@ -60,7 +60,15 @@ def signup():
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
-        auth.create_user_with_email_and_password(email, password)
+        user = auth.create_user_with_email_and_password(email, password)
+        username = request.form.get("username")
+        userID = user["localId"]
+        data = {
+            "email": email,
+            "username": username,
+        }
+        database.child("users-db").child(userID).set(data)
+        return render_template("./index.html")
 
     return render_template("./sign-up.html")
 
