@@ -3,3 +3,4 @@ firebase-admin
 flask
 pip3
 python3.9.10
+gunicorn
