@@ -1,5 +1,4 @@
 pyrebase
 firebase-admin
 flask
-python3.9.10
 gunicorn
