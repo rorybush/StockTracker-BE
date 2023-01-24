@@ -1,6 +1,5 @@
-from flask import Flask, session, render_template, request, redirect
+from flask import Flask, request
 import pyrebase
-from authentication import auth
 
 firebaseConfig = {
     "apiKey": "AIzaSyABF_dh8WSnwqCmlX01PiQ7hiOFhleX4Bc",
@@ -16,27 +15,9 @@ firebaseConfig = {
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
 
-# user = auth.create_user_with_email_and_password(email, password)
-# userID = user["localId"]
+app = Flask(__name__)
 
-def addPortfolio(uid, stockname, date, quantity):
-    db.child('users-db').child(uid).child(stockname).set({
-    'date': date,
-    'quantity': quantity,
-})
-
-def updatePortfolio(uid, stockname, date, quantity):
-    db.child('users-db').child(uid).child(stockname).update({
-    'date': date,
-    'quantity': quantity,
-})
-
-def removePortfolio(uid):
-    db.child('users-db').child(uid).remove()
-
-def removeStockFromPortfolio(uid, stockname):
-    db.child('users-db').child(uid).child(stockname).remove()
-
+@app.route(f"/api/portfolio/<uid>", methods=["GET"])
 def getPortfolio(uid):
     portfolioList = []
     results = db.child('users-db').child(uid).get()
@@ -44,16 +25,34 @@ def getPortfolio(uid):
         portfolioList.append({result.key(): result.val()})
     return portfolioList
 
+@app.route(f"/api/portfolio/<uid>/add", methods=["POST", 'GET'])
+def addPortfolio(uid):
+    stock = request.form.get('stock')
+    date = request.form.get('date')
+    quantity = request.form.get('quantity')
+    db.child('users-db').child(uid).child(stock).set({
+    'date': date,
+    'quantity': quantity,
+    })
 
-# results = db.child('q5B0Tm2BoQekynXWR7q6WtlikfI2').get()
+@app.route(f"/api/portfolio/<uid>/update", methods=["PATCH", 'GET'])
+def updatePortfolio(uid):
+    stock = request.form.get('stock')
+    date = request.form.get('date')
+    quantity = request.form.get('quantity')
+    db.child('users-db').child(uid).child(stock).update({
+    'date': date,
+    'quantity': quantity,
+})
 
-# for result in results.each():
-#     print({result.key(): result.val()})
-    
-# db.child('users-db').child('q5B0Tm2BoQekynXWR7q6WtlikfI2').child('aapl').set({
-#     'portfoloId': 1
-#     'date': 3453534,
-#     'quantity': 100,
-# })
+@app.route(f"/api/portfolio/<uid>/remove", methods=["DELETE", 'GET'])
+def removeStockFromPortfolio(uid):
+    stock = request.form.get('stock')
+    db.child('users-db').child(uid).child(stock).remove()
 
+@app.route(f"/api/portfolio/<uid>/wipe", methods=["DELETE", 'GET'])
+def removePortfolio(uid):
+    db.child('users-db').child(uid).remove()
 
+if __name__ == "__main__":
+    app.run(port=1111)

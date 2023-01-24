@@ -1,35 +1,11 @@
 from flask import Flask, session, render_template, request, redirect
 import pyrebase
-from authentication import auth
+from authentication import auth, firebaseConfig
 
 app = Flask(__name__)
 
-firebaseConfig = {
-    "apiKey": "AIzaSyABF_dh8WSnwqCmlX01PiQ7hiOFhleX4Bc",
-    "authDomain": "southcoders-be.firebaseapp.com",
-    "projectId": "southcoders-be",
-    "databaseURL": "https://southcoders-be-default-rtdb.europe-west1.firebasedatabase.app/",
-    "storageBucket": "southcoders-be.appspot.com",
-    "messagingSenderId": "851060036490",
-    "appId": "1:851060036490:web:4b2a072e7b5fd2d504ee73",
-    "measurementId": "G-7R5FPYEH2F"
-}
-
 firebase = pyrebase.initialize_app(firebaseConfig)
 database = firebase.database()
-
-data = {
-    "id": 283,
-    "username": "test",
-    "age": 24,
-    "location": "london"
-}
-
-database.child("users-db").child(data["id"]).set(data)
-
-
-auth = firebase.auth()
-
 app.secret_key = "secret"
 
 
@@ -69,9 +45,7 @@ def signup():
         }
         database.child("users-db").child(userID).set(data)
         return render_template("./index.html")
-
     return render_template("./sign-up.html")
-
 
 if __name__ == "__main__":
     app.run(port=1111)
