@@ -1,5 +1,7 @@
-from flask import Flask, request
+from flask import Flask, request, Blueprint
 import pyrebase
+
+portfolio = Blueprint('portfolio', __name__)
 
 firebaseConfig = {
     "apiKey": "AIzaSyABF_dh8WSnwqCmlX01PiQ7hiOFhleX4Bc",
@@ -15,9 +17,8 @@ firebaseConfig = {
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
 
-app = Flask(__name__)
 
-@app.route(f"/api/portfolio/<uid>", methods=["GET"])
+@portfolio.route(f"/api/portfolio/<uid>", methods=["GET"])
 def getPortfolio(uid):
     portfolioList = []
     results = db.child('users-db').child(uid).get()
@@ -25,7 +26,7 @@ def getPortfolio(uid):
         portfolioList.append({result.key(): result.val()})
     return portfolioList
 
-@app.route(f"/api/portfolio/<uid>/add", methods=["POST", 'GET'])
+@portfolio.route(f"/api/portfolio/<uid>/add", methods=["POST", 'GET'])
 def addPortfolio(uid):
     stock = request.form.get('stock')
     date = request.form.get('date')
@@ -35,7 +36,7 @@ def addPortfolio(uid):
     'quantity': quantity,
     })
 
-@app.route(f"/api/portfolio/<uid>/update", methods=["PATCH", 'GET'])
+@portfolio.route(f"/api/portfolio/<uid>/update", methods=["PATCH", 'GET'])
 def updatePortfolio(uid):
     stock = request.form.get('stock')
     date = request.form.get('date')
@@ -45,14 +46,12 @@ def updatePortfolio(uid):
     'quantity': quantity,
 })
 
-@app.route(f"/api/portfolio/<uid>/remove", methods=["DELETE", 'GET'])
+@portfolio.route(f"/api/portfolio/<uid>/remove", methods=["DELETE", 'GET'])
 def removeStockFromPortfolio(uid):
     stock = request.form.get('stock')
     db.child('users-db').child(uid).child(stock).remove()
 
-@app.route(f"/api/portfolio/<uid>/wipe", methods=["DELETE", 'GET'])
+@portfolio.route(f"/api/portfolio/<uid>/wipe", methods=["DELETE", 'GET'])
 def removePortfolio(uid):
     db.child('users-db').child(uid).remove()
 
-if __name__ == "__main__":
-    app.run(port=1111)

@@ -1,4 +1,6 @@
-pyrebase
-firebase-admin
-flask
+Pyrebase4==4.6.0
+firebase-admin==6.0.1
+Flask==2.2.2
+Flask-Cors==3.0.10
 gunicorn
+yfinance==0.2.4
