@@ -5,13 +5,14 @@ today = datetime.now()
 month_ago = today - timedelta(days=30)
 
 
-def get_general_finance_news():
+def get_general_finance_news(limit=5):
     try:
         news = yf.Ticker('N/A').news
-        return news
+        return news[:limit]
     except: 
         return 'Error getting general finance news from api'
 
+# print(get_general_finance_news(2))
 
 def get_company_news(ticker, limit=15):
     try: 
@@ -25,6 +26,7 @@ def get_company_news(ticker, limit=15):
     except:
         return 'Error getting company news from api'
 
+# print(get_company_news('Aviva', 1))
 
 def get_markets_news(ticker, limit=15):
     try: 
@@ -38,7 +40,7 @@ def get_markets_news(ticker, limit=15):
     except:
         return 'Error getting company news from api'
 
-print(get_markets_news('FTSE'))
+# print(get_markets_news('FTSE', 2))
 
 
 def get_portfolio_news(tickerArr, limit=5):
