@@ -1,10 +1,15 @@
+from flask import Flask, request, Blueprint
+import pyrebase
 import yfinance as yf
 from datetime import datetime, timedelta
+
+news = Blueprint('news', __name__)
 
 today = datetime.now()
 month_ago = today - timedelta(days=30)
 
 
+@news.route("/api/news", methods=["GET"])
 def get_general_finance_news(limit=5):
     try:
         news = yf.Ticker('N/A').news
@@ -14,6 +19,7 @@ def get_general_finance_news(limit=5):
 
 # print(get_general_finance_news(2))
 
+@news.route(f"/api/news/<ticker>", methods=["GET"])
 def get_company_news(ticker, limit=15):
     try: 
         stock = yf.Ticker(ticker)
@@ -28,9 +34,10 @@ def get_company_news(ticker, limit=15):
 
 # print(get_company_news('Aviva', 1))
 
-def get_markets_news(ticker, limit=15):
+@news.route(f"/api/news/<symbol>", methods=["GET"])
+def get_markets_news(symbol, limit=15):
     try: 
-        market = yf.Ticker(f"^{ticker}")
+        market = yf.Ticker(f"^{symbol}")
         market_news = market.news
         if not market_news :
              return  'No Articles Found'
@@ -42,13 +49,13 @@ def get_markets_news(ticker, limit=15):
 
 # print(get_markets_news('FTSE', 2))
 
-
-def get_portfolio_news(tickerArr, limit=5):
-    news_arr = []
-    for stock in tickerArr:
-        stock_news = get_company_news(stock)
-        news_arr.append(stock_news[:limit])
-    return news_arr 
+# @news.route(f"/api/news/<symbol>", methods=["GET"])
+# def get_portfolio_news(tickerArr, limit=5):
+#     news_arr = []
+#     for stock in tickerArr:
+#         stock_news = get_company_news(stock)
+#         news_arr.append(stock_news[:limit])
+#     return news_arr 
         
 
 
