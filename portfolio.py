@@ -21,39 +21,42 @@ db = firebase.database()
 @portfolio.route(f"/api/portfolio/<uid>", methods=["GET"])
 def getPortfolio(uid):
     portfolioList = []
-    results = db.child('users-db').child(uid).get()
+    results = db.child('users-portfolio').child(uid).get()
     for result in results.each():
         portfolioList.append({result.key(): result.val()})
     return portfolioList
 
-@portfolio.route(f"/api/portfolio/<uid>/add", methods=["POST", 'GET'])
+@portfolio.route(f"/api/portfolio/<uid>/add", methods=["POST"])
 def addPortfolio(uid):
-    stock = request.form.get('stock')
-    date = request.form.get('date')
-    quantity = request.form.get('quantity')
-    db.child('users-db').child(uid).child('appl').set({
-    'name': 'aapl',
-    'date': 2342343,
-    'quantity': 23,
-    'price': 4
-    })
+    newStockData = request.json
+    dataToSend = {
+    'name': newStockData['name'],
+    'date': newStockData['date'],
+    'quantity': newStockData['quantity'],
+    'price': newStockData['price']
+    }
+    db.child('users-portfolio').child(uid).child(newStockData['name']).set(dataToSend)
+    return dataToSend
 
-@portfolio.route(f"/api/portfolio/<uid>/update", methods=["PATCH", 'GET'])
+
+@portfolio.route(f"/api/portfolio/<uid>/update", methods=["PATCH"])
 def updatePortfolio(uid):
-    stock = request.form.get('stock')
-    date = request.form.get('date')
-    quantity = request.form.get('quantity')
-    db.child('users-db').child(uid).child(stock).update({
-    'date': date,
-    'quantity': quantity,
-})
+    newStockData = request.json
+    dataToPatch = {
+    'name': newStockData['name'],
+    'date': newStockData['date'],
+    'quantity': newStockData['quantity'],
+    'price': newStockData['price']
+    }
+    db.child('users-portfolio').child(uid).child(newStockData['name']).update(dataToPatch)
+    return dataToPatch
 
-@portfolio.route(f"/api/portfolio/<uid>/remove", methods=["DELETE", 'GET'])
+@portfolio.route(f"/api/portfolio/<uid>/removestock", methods=["DELETE"])
 def removeStockFromPortfolio(uid):
-    stock = request.form.get('stock')
-    db.child('users-db').child(uid).child(stock).remove()
+    stockToRemove = request.json
+    db.child('users-portfolio').child(uid).child(stockToRemove['name']).remove()
 
-@portfolio.route(f"/api/portfolio/<uid>/wipe", methods=["DELETE", 'GET'])
+@portfolio.route(f"/api/portfolio/<uid>/deleteportfolio", methods=["DELETE"])
 def removePortfolio(uid):
-    db.child('users-db').child(uid).remove()
+    db.child('users-portfolio').child(uid).remove()
 
