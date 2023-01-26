@@ -12,8 +12,10 @@ app.register_blueprint(stocknews, url_prefix="")
 
 
 
-app.secret_key = "secret"
+# app.secret_key = "secret"
 
 
 if __name__ == "__main__":
-    app.run(port=1111)
+    app.run()
+
+# port=1111
