@@ -40,7 +40,7 @@ def getStockData(symbol):
        'lastVolume': stockBasicInfo['last_volume'].astype(float),
         'yearHigh': stockBasicInfo['year_high'],
         'yearLow': stockBasicInfo['year_low'],
-        'employeed': stockBasicInfo['fullTimeEmployees'],
+        'employees': stockBasicInfo['fullTimeEmployees'],
         'website': stockBasicInfo['website'],
         'headquarter': stockBasicInfo['country'],
         'pricetobook': stockBasicInfo['priceToBook'],
