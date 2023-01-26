@@ -34,7 +34,7 @@ def get_company_news(ticker, limit=15):
 
 # print(get_company_news('Aviva', 1))
 
-@stocknews.route(f"/api/news/<symbol>", methods=["GET"])
+@stocknews.route(f"/api/news/markets/<symbol>", methods=["GET"])
 def get_markets_news(symbol, limit=15):
     try: 
         market = yf.Ticker(f"^{symbol}")
@@ -49,13 +49,13 @@ def get_markets_news(symbol, limit=15):
 
 # print(get_markets_news('FTSE', 2))
 
-@stocknews.route(f"/api/news/<symbol>", methods=["GET"])
-def get_portfolio_news(tickerArr, limit=5):
-    news_arr = []
-    for stock in tickerArr:
-        stock_news = get_company_news(stock)
-        news_arr.append(stock_news[:limit])
-    return news_arr 
+# @stocknews.route(f"/api/news/<symbol>", methods=["GET"])
+# def get_portfolio_news(tickerArr, limit=5):
+#     news_arr = []
+#     for stock in tickerArr:
+#         stock_news = get_company_news(stock)
+#         news_arr.append(stock_news[:limit])
+#     return news_arr 
         
 
 
