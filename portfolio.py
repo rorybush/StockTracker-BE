@@ -31,9 +31,11 @@ def addPortfolio(uid):
     stock = request.form.get('stock')
     date = request.form.get('date')
     quantity = request.form.get('quantity')
-    db.child('users-db').child(uid).child(stock).set({
-    'date': date,
-    'quantity': quantity,
+    db.child('users-db').child(uid).child('appl').set({
+    'name': 'aapl',
+    'date': 2342343,
+    'quantity': 23,
+    'price': 4
     })
 
 @portfolio.route(f"/api/portfolio/<uid>/update", methods=["PATCH", 'GET'])
