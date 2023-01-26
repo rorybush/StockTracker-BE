@@ -3,13 +3,13 @@ import pyrebase
 import yfinance as yf
 from datetime import datetime, timedelta
 
-news = Blueprint('news', __name__)
+stocknews = Blueprint('stocknews', __name__)
 
 today = datetime.now()
 month_ago = today - timedelta(days=30)
 
 
-@news.route("/api/news", methods=["GET"])
+@stocknews.route("/api/news", methods=["GET"])
 def get_general_finance_news(limit=5):
     try:
         news = yf.Ticker('N/A').news
@@ -19,7 +19,7 @@ def get_general_finance_news(limit=5):
 
 # print(get_general_finance_news(2))
 
-@news.route(f"/api/news/<ticker>", methods=["GET"])
+@stocknews.route(f"/api/news/<ticker>", methods=["GET"])
 def get_company_news(ticker, limit=15):
     try: 
         stock = yf.Ticker(ticker)
@@ -34,7 +34,7 @@ def get_company_news(ticker, limit=15):
 
 # print(get_company_news('Aviva', 1))
 
-@news.route(f"/api/news/<symbol>", methods=["GET"])
+@stocknews.route(f"/api/news/<symbol>", methods=["GET"])
 def get_markets_news(symbol, limit=15):
     try: 
         market = yf.Ticker(f"^{symbol}")

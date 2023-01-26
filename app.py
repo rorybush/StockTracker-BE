@@ -1,15 +1,15 @@
 from flask import Flask
 from flask_cors import CORS
-from authentication import authentication
 from portfolio import portfolio
 from chartData import chartData
-
+from stocknews import stocknews
 
 app = Flask(__name__)
 CORS(app)
 app.register_blueprint(portfolio, url_prefix="")
-app.register_blueprint(authentication, url_prefix="")
 app.register_blueprint(chartData, url_prefix="")
+app.register_blueprint(stocknews, url_prefix="")
+
 
 
 app.secret_key = "secret"
