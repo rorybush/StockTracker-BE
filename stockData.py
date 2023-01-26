@@ -21,6 +21,25 @@ stockData = Blueprint('stockData', __name__)
 
 
 
+@stockData.route(f"/api/stockdata", methods=["GET"])
+def getStockData(symbol):
+    stock = yf.Ticker(symbol)
+    stockBasicInfo = stock.basic_info
+    stockInfo =  {
+        'tickerSymbol': symbol,
+       'marketCap': stockBasicInfo['market_cap'],
+       'lastPrice': stockBasicInfo['last_price'],
+       'previousClose': stockBasicInfo['previous_close'],
+       'open': stockBasicInfo['open'],
+       'dayHigh': stockBasicInfo['day_high'],
+       'dayLow': stockBasicInfo['day_low'],
+       'lastVolume': stockBasicInfo['last_volume'].astype(float),
+        'yearHigh': stockBasicInfo['year_high'],
+        'yearLow': stockBasicInfo['year_low'],
+ }
+    return stockInfo
+
+
 @stockData.route(f"/api/stockdata/<symbol>", methods=["GET"])
 def getStockData(symbol):
     stock = yf.Ticker(symbol)
@@ -38,3 +57,4 @@ def getStockData(symbol):
         'yearLow': stockBasicInfo['year_low'],
  }
     return stockInfo
+
