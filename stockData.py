@@ -30,7 +30,7 @@ def getStockData(symbol):
         'tickerSymbol': symbol,
        'sector': stockinfo['sector'],
        'marketCap': stockBasicInfo['market_cap'],
-       'lastPrice': stockBasicInfo['last_price'],
+       'latestPrice': stockBasicInfo['last_price'],
        'previousClose': stockBasicInfo['previous_close'],
        'open': stockBasicInfo['open'],
        'dayHigh': stockBasicInfo['day_high'],

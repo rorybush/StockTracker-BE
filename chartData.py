@@ -6,8 +6,8 @@ import pandas as pd
 chartData = Blueprint('stock', __name__)
 
 
-stock = yf.Ticker('msft')
-stockHistory = stock.history(period="1mo")
+stock = yf.Ticker('tsla')
+stockHistory = stock.history(period="max")
 stockHistory = stockHistory.reset_index()
 del stockHistory['Dividends']
 del stockHistory['Stock Splits']
