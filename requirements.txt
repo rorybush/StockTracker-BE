@@ -5,4 +5,3 @@ Flask-Cors==3.0.10
 gunicorn
 yfinance==0.2.9
 pytickersymbols==1.13.0
-pandas==1.5.3
