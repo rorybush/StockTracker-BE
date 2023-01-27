@@ -54,9 +54,11 @@ def updatePortfolio(uid):
 @portfolio.route(f"/api/portfolio/<uid>/removestock", methods=["DELETE"])
 def removeStockFromPortfolio(uid):
     stockToRemove = request.json
-    db.child('users-portfolio').child(uid).child(stockToRemove['name']).remove()
+    db.child('users-portfolio').child(uid).child(stockToRemove['stock']).remove()
+    return 'Stock Deleted'
 
-@portfolio.route(f"/api/portfolio/<uid>/deleteportfolio", methods=["DELETE"])
+@portfolio.route(f"/api/portfolio/<uid>/deleteportfolio", methods=["DELETE", 'GET'])
 def removePortfolio(uid):
     db.child('users-portfolio').child(uid).remove()
+    return 'Portfolio Deleted'
 
