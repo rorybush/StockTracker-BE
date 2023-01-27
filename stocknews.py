@@ -49,18 +49,18 @@ def get_markets_news(symbol, limit=15):
 
 # print(get_markets_news('FTSE', 2))
 
-@stocknews.route(f"/api/news/portfolio", methods=["GET"])
-def get_portfolio_news(tickerArr, limit=5):
-    try: 
-        tickerArr = request.json['tickerArr']
-        news_arr = []
-        for stock in tickerArr:
-            stock_news = get_company_news(stock)
-            news_arr.append(stock_news[:limit])
-        return news_arr 
-    except:
-        return 'Error getting portfolio news from api'
-        
+@stocknews.route("/api/news/portfolio", methods=["GET"])
+def get_portfolio_news():
+    ticker_arr = request.args.getlist("tickerArr")
+    limit = request.args.get("limit", 5)
+    if not ticker_arr:
+        return "No tickerArr parameter in the request", 400
+    news_arr = []
+    for stock in ticker_arr:
+        stock_news = get_company_news(stock)
+        news_arr.append(stock_news[:limit])
+    return news_arr
+  
 
 
 # print(get_portfolio_news(["Aviva", "AAPL", "MSFT", "GOOGL", "WME"]))
