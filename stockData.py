@@ -19,35 +19,33 @@ db = firebase.database()
 
 stockData = Blueprint('stockData', __name__)
 
-# stock = yf.Ticker("AAPL")
-# stockinfo=stock.info
-# for key,value in stockinfo.items():
-#     print(key, ':', value)
-
 
 @stockData.route(f"/api/stockdata/<symbol>", methods=["GET"])
 def getStockData(symbol):
     stock = yf.Ticker(symbol)
-    stockBasicInfo = stock.basic_info
+    stockBasicInfo = stock.fast_info
+    stockinfo=stock.info
     stockInfo =  {
+        'companyName': stockinfo['shortName'],
         'tickerSymbol': symbol,
+       'sector': stockinfo['sector'],
        'marketCap': stockBasicInfo['market_cap'],
        'lastPrice': stockBasicInfo['last_price'],
        'previousClose': stockBasicInfo['previous_close'],
        'open': stockBasicInfo['open'],
        'dayHigh': stockBasicInfo['day_high'],
        'dayLow': stockBasicInfo['day_low'],
-       'lastVolume': stockBasicInfo['last_volume'].astype(float),
+        'lastVolume':  stockBasicInfo['last_volume'],
         'yearHigh': stockBasicInfo['year_high'],
         'yearLow': stockBasicInfo['year_low'],
-        'employees': stockBasicInfo['fullTimeEmployees'],
-        'website': stockBasicInfo['website'],
-        'headquarter': stockBasicInfo['country'],
-        'pricetobook': stockBasicInfo['priceToBook'],
-        'bookValue': stockBasicInfo['bookValue'],
-        'ask': stockBasicInfo['ask'],
-        'logo': stockBasicInfo['logo_url'],
-        'summary': stockBasicInfo['longBusinessSummary'],
+         'employees': stockinfo['fullTimeEmployees'],
+         'website': stockinfo['website'],
+        'headquarter': stockinfo['country'],
+        'pricetobook': stockinfo['priceToBook'],
+        'bookValue': stockinfo['bookValue'],
+        'ask': stockinfo['ask'],
+        'logo': stockinfo['logo_url'],
+        'summary': stockinfo['longBusinessSummary'],
 
  }
     return stockInfo
