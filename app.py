@@ -14,7 +14,7 @@ app.register_blueprint(chartData, url_prefix="")
 app.register_blueprint(stocknews, url_prefix="")
 app.register_blueprint(stockData, url_prefix="")
 app.register_blueprint(stockList, url_prefix="")
-app.register_blueprint(tickerInfo, url_prefix="")
+app.register_blueprint(tickerinfo, url_prefix="")
 
 
 if __name__ == "__main__":
