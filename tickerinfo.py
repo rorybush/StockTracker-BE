@@ -15,5 +15,5 @@ def get_price():
         stock = yf.Ticker(ticker)
         price = stock.fast_info['last_price']
         info_arr.append({ticker: price})
-    return info_arr
+    return ticker_arr
   
