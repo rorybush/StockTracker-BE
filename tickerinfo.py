@@ -5,7 +5,7 @@ import json
 tickerinfo = Blueprint('tickerinfo', __name__)
 
 
-@tickerInfo.route(f"/api/tickerinfo", methods=["GET"])
+@tickerinfo.route(f"/api/tickerinfo", methods=["GET"])
 def get_price():
     ticker_arr = request.args.getlist("tickerArr")
     if not ticker_arr:
