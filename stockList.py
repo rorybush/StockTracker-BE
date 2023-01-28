@@ -19,6 +19,17 @@ allStocks.extend(nasdaq100)
 allStocks.extend(dow)
 allStocks.extend(cac40)
 
+allStocksSet = set()
+removeDuplicates = []
+
+for stock in allStocks:
+    if stock['symbol'] not in allStocksSet:
+        allStocksSet.add(stock['symbol'])
+        removeDuplicates.append(stock)
+
+allStocks = removeDuplicates
+
+
 @stockList.route(f'api/stocklist', methods=["GET"])
 def stockListByExchange():
     filteredData = []
