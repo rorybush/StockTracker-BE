@@ -6,7 +6,7 @@ from stocknews import stocknews
 from stockData import stockData
 from stockList import stockList
 from tickerinfo import tickerinfo
-from calendar import calendar
+from events import calendar
 
 app = Flask(__name__)
 CORS(app)
