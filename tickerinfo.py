@@ -7,9 +7,10 @@ tickerinfo = Blueprint('tickerinfo', __name__)
 
 @tickerinfo.route(f"/api/tickerinfo", methods=["GET"])
 def get_price():
-    ticker_arr = request.args.getlist("tickerArr")
-    if not ticker_arr:
+    ticker_string = request.args.getlist("tickerArr")
+    if not ticker_string:
         return "No tickerArr parameter in the request", 400
+    ticker_arr = ticker_string.split(',')
     info_arr = []
     for ticker in ticker_arr:
         stock = yf.Ticker(ticker)
