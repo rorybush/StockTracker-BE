@@ -5,7 +5,7 @@ from chartData import chartData
 from stocknews import stocknews
 from stockData import stockData
 from stockList import stockList
-from tickerinfo import tickerInfo
+from tickerinfo import tickerinfo
 
 app = Flask(__name__)
 CORS(app)

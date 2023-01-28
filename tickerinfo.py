@@ -2,10 +2,10 @@ import yfinance as yf
 from flask import Flask, request, Blueprint
 import pyrebase
 import json
-tickerInfo = Blueprint('tickerInfo', __name__)
+tickerinfo = Blueprint('tickerinfo', __name__)
 
 
-@tickerInfo.route(f"/api/tickerInfo", methods=["GET"])
+@tickerInfo.route(f"/api/tickerinfo", methods=["GET"])
 def get_price():
     ticker_arr = request.args.getlist("tickerArr")
     if not ticker_arr:
