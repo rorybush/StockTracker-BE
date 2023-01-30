@@ -10,7 +10,7 @@ month_ago = today - timedelta(days=30)
 
 
 @stocknews.route("/api/news", methods=["GET"])
-def get_general_finance_news(limit=5):
+def get_general_finance_news(limit=10):
     try:
         news = yf.Ticker('N/A').news
         return news[:limit]
