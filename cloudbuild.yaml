@@ -9,7 +9,7 @@ steps:
       - --source=.
       - --trigger-http
       - --runtime=python39
-      - --memory=4000MB
+      - --memory=4096MB
       - --timeout=90
       - --min-instances=0
       - --max-instances=1
