@@ -1,5 +1,7 @@
 from flask import Flask, request, Blueprint
 import pyrebase
+import yfinance as yf
+
 
 portfolio = Blueprint('portfolio', __name__)
 
@@ -62,3 +64,21 @@ def removePortfolio(uid):
     db.child('users-portfolio').child(uid).remove()
     return 'Portfolio Deleted'
 
+@portfolio.route(f"/api/portfolio/<uid>/pl", methods=["GET"])
+def getPortfolioProfitLoss(uid):
+    userPortfolio = getPortfolio(uid)
+    portfolioPL = []
+    for stock in userPortfolio:
+        for key, value in stock.items():
+            stock = yf.Ticker(value['name']).fast_info
+            todaysPrice = stock['last_price']
+            portfolioPL.append({
+                'name': value['name'],
+                'dateBought': value['date'],
+                'quantity': int(value['quantity']),
+                'buyPrice': int(value['price']),
+                'totalBuyPrice': int(value['quantity']) * int(value['price']),
+                'todaysPrice': int(todaysPrice),
+                'todaysTotalPrice': todaysPrice * int(value['quantity'])
+            })
+    return portfolioPL
