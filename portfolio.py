@@ -79,6 +79,7 @@ def getPortfolioProfitLoss(uid):
                 'buyPrice': int(value['price']),
                 'totalBuyPrice': int(value['quantity']) * int(value['price']),
                 'todaysPrice': int(todaysPrice),
-                'todaysTotalPrice': todaysPrice * int(value['quantity'])
+                'todaysTotalPrice': todaysPrice * int(value['quantity']),
+                'ProfitLoss': todaysPrice * int(value['quantity']) - int(value['quantity']) * int(value['price'])
             })
     return portfolioPL
