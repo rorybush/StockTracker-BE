@@ -2,6 +2,8 @@ Pyrebase4==4.6.0
 firebase-admin==6.0.1
 Flask==2.2.2
 Flask-Cors==3.0.10
+requests==2.28.1
+ptvsd==4.3.2 # Required for debugging.
 gunicorn
 yfinance==0.2.9
 pytickersymbols==1.13.0
