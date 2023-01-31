@@ -4,12 +4,12 @@ steps:
       - gcloud
       - functions
       - deploy
-      - hello_world
-      - --region=europe-west3
+      - app
+      - --region=europe-west2
       - --source=.
       - --trigger-http
       - --runtime=python39
-      - --memory=128MB
+      - --memory=4000MB
       - --timeout=90
       - --min-instances=0
       - --max-instances=1
