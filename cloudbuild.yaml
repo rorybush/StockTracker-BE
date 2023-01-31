@@ -16,4 +16,3 @@ steps:
       - --security-level=secure-always
       - --ingress-settings=all
       - --no-allow-unauthenticated
-      - --service-account=hello-world-function-sa@for-developers-343319.iam.gserviceaccount.com
