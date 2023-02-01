@@ -59,7 +59,7 @@ def removeStockFromPortfolio(uid):
     db.child('users-portfolio').child(uid).child(stockToRemove['stock']).remove()
     return 'Stock Deleted'
 
-@portfolio.route(f"/api/portfolio/<uid>/deleteportfolio", methods=["DELETE", 'GET'])
+@portfolio.route(f"/api/portfolio/<uid>/deleteportfolio", methods=["DELETE"])
 def removePortfolio(uid):
     db.child('users-portfolio').child(uid).remove()
     return 'Portfolio Deleted'
