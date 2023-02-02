@@ -2,7 +2,7 @@
 
 > This is the backend for a stock tracking app that predicts the future the price of a stock. Users are able to view stock data, stock graph, stock news and build a stock portfolio which tracks and calculates their Profit/Loss.
 
-[Frontend - Hosted on Netlify](https://keen-zuccutto-fc3a25.netlify.app/)
+[Frontend - Hosted on Netlify](https://pynance.netlify.app/)
 
 [Backend - Hosted on DigitalOcean](https://sea-turtle-app-xc9w8.ondigitalocean.app/)
 
