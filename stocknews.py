@@ -17,7 +17,6 @@ def get_general_finance_news(limit=10):
     except: 
         return 'Error getting general finance news from api'
 
-# print(get_general_finance_news(2))
 
 @stocknews.route(f"/api/news/<ticker>", methods=["GET"])
 def get_company_news(ticker, limit=15):
@@ -32,7 +31,6 @@ def get_company_news(ticker, limit=15):
     except:
         return 'Error getting company news from api'
 
-# print(get_company_news('Aviva', 1))
 
 @stocknews.route(f"/api/news/markets/<symbol>", methods=["GET"])
 def get_markets_news(symbol, limit=15):
@@ -47,7 +45,6 @@ def get_markets_news(symbol, limit=15):
     except:
         return 'Error getting company news from api'
 
-# print(get_markets_news('FTSE', 2))
 
 @stocknews.route("/api/news/portfolio", methods=["GET"])
 def get_portfolio_news():
@@ -61,6 +58,3 @@ def get_portfolio_news():
         news_arr.append(stock_news[:limit])
     return news_arr
   
-
-
-# print(get_portfolio_news(["Aviva", "AAPL", "MSFT", "GOOGL", "WME"]))

@@ -4,7 +4,6 @@ import pyrebase
 import json
 tickerinfo = Blueprint('tickerinfo', __name__)
 
-#/api/tickerinfo?tickerArr=AAPL&tickerArr=GOOG
 
 @tickerinfo.route(f"/api/tickerinfo", methods=["GET"])
 def get_price():
